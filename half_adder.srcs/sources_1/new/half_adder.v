@@ -27,8 +27,8 @@ output sum_o,
 output cout_o
 
     );
- xor G1 (sum_o ,a_i,b_i);
- and G2 (cout_o,a_i,b_i); 
+ assign sum_o= a_i ^ b_i;
+ assign cout_o= a_i & b_i;
     
     
     

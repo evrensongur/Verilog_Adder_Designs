@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/first/Projects/Verilog/half_adder/half_adder.runs/synth_1/full_adder.tcl"
+  variable script "C:/Users/first/Projects/Verilog/Verilog_Adder_Designs/half_adder.runs/synth_1/full_adder.tcl"
   variable category "vivado_synth"
 }
 
@@ -56,24 +56,26 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 2
+set_param checkpoint.writeSynthRtdsInDcp 1
+set_param synth.incrementalSynthesisCache C:/Users/first/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-7680-EVREN/incrSyn
+set_msg_config -id {Synth 8-256} -limit 10000
+set_msg_config -id {Synth 8-638} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7k70tfbv676-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir C:/Users/first/Projects/Verilog/half_adder/half_adder.cache/wt [current_project]
-set_property parent.project_path C:/Users/first/Projects/Verilog/half_adder/half_adder.xpr [current_project]
+set_property webtalk.parent_dir C:/Users/first/Projects/Verilog/Verilog_Adder_Designs/half_adder.cache/wt [current_project]
+set_property parent.project_path C:/Users/first/Projects/Verilog/Verilog_Adder_Designs/half_adder.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo c:/Users/first/Projects/Verilog/half_adder/half_adder.cache/ip [current_project]
+set_property ip_output_repo c:/Users/first/Projects/Verilog/Verilog_Adder_Designs/half_adder.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_verilog -library xil_defaultlib {
-  C:/Users/first/Projects/Verilog/half_adder/half_adder.srcs/sources_1/new/half_adder.v
-  C:/Users/first/Projects/Verilog/half_adder/half_adder.srcs/sources_1/new/full_adder.v
-}
+read_verilog -library xil_defaultlib C:/Users/first/Projects/Verilog/Verilog_Adder_Designs/half_adder.srcs/sources_1/new/full_adder.v
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -84,6 +86,8 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
 set_param ips.enableIPCacheLiteLoad 1
+
+read_checkpoint -auto_incremental -incremental C:/Users/first/Projects/Verilog/Verilog_Adder_Designs/half_adder.srcs/utils_1/imports/synth_1/full_adder.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }

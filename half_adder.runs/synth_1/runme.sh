@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/first/Projects/Verilog/half_adder/half_adder.runs/synth_1'
+HD_PWD='C:/Users/first/Projects/Verilog/Verilog_Adder_Designs/half_adder.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

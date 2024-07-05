@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.1 (win64) Build 5076996 Wed May 22 18:37:14 MDT 2024
-| Date         : Mon Jul  1 20:20:57 2024
+| Date         : Fri Jul  5 10:55:14 2024
 | Host         : EVREN running 64-bit major release  (build 9200)
 | Command      : report_timing_summary -max_paths 10 -report_unconstrained -file full_adder_timing_summary_routed.rpt -pb full_adder_timing_summary_routed.pb -rpx full_adder_timing_summary_routed.rpx -warn_on_violation
 | Design       : full_adder
@@ -138,7 +138,7 @@ Table of Contents
 
     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-        inf        0.000                      0                    1          inf        0.000                      0                    1           NA           NA                      NA                    NA  
+        inf        0.000                      0                    2          inf        0.000                      0                    2           NA           NA                      NA                    NA  
 
 
 There are no user specified timing constraints.
@@ -207,8 +207,8 @@ Path Group:  (none)
 From Clock:  
   To Clock:  
 
-Max Delay             1 Endpoint
-Min Delay             1 Endpoint
+Max Delay             2 Endpoints
+Min Delay             2 Endpoints
 --------------------------------------------------------------------------------------
 
 
@@ -221,7 +221,7 @@ Slack:                    inf
                             (output port)
   Path Group:             (none)
   Path Type:              Max at Slow Process Corner
-  Data Path Delay:        5.509ns  (logic 3.274ns (59.433%)  route 2.235ns (40.567%))
+  Data Path Delay:        5.761ns  (logic 3.401ns (59.032%)  route 2.360ns (40.968%))
   Logic Levels:           3  (IBUF=1 LUT3=1 OBUF=1)
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
@@ -229,12 +229,35 @@ Slack:                    inf
     U16                                               0.000     0.000 r  a_i (IN)
                          net (fo=0)                   0.000     0.000    a_i
     U16                  IBUF (Prop_ibuf_I_O)         0.802     0.802 r  a_i_IBUF_inst/O
-                         net (fo=1, routed)           0.992     1.794    a_i_IBUF
-    SLICE_X0Y2           LUT3 (Prop_lut3_I2_O)        0.053     1.847 r  cout_o_OBUF_inst_i_1/O
-                         net (fo=1, routed)           1.242     3.089    cout_o_OBUF
-    T17                  OBUF (Prop_obuf_I_O)         2.419     5.509 r  cout_o_OBUF_inst/O
-                         net (fo=0)                   0.000     5.509    cout_o
+                         net (fo=2, routed)           1.099     1.901    a_i_IBUF
+    SLICE_X0Y2           LUT3 (Prop_lut3_I2_O)        0.063     1.964 r  cout_o_OBUF_inst_i_1/O
+                         net (fo=1, routed)           1.261     3.225    cout_o_OBUF
+    T17                  OBUF (Prop_obuf_I_O)         2.536     5.761 r  cout_o_OBUF_inst/O
+                         net (fo=0)                   0.000     5.761    cout_o
     T17                                                               r  cout_o (OUT)
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 a_i
+                            (input port)
+  Destination:            sum_o
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        5.624ns  (logic 3.272ns (58.184%)  route 2.352ns (41.816%))
+  Logic Levels:           3  (IBUF=1 LUT3=1 OBUF=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    U16                                               0.000     0.000 r  a_i (IN)
+                         net (fo=0)                   0.000     0.000    a_i
+    U16                  IBUF (Prop_ibuf_I_O)         0.802     0.802 r  a_i_IBUF_inst/O
+                         net (fo=2, routed)           1.099     1.901    a_i_IBUF
+    SLICE_X0Y2           LUT3 (Prop_lut3_I0_O)        0.053     1.954 r  sum_o_OBUF_inst_i_1/O
+                         net (fo=1, routed)           1.252     3.206    sum_o_OBUF
+    U17                  OBUF (Prop_obuf_I_O)         2.417     5.624 r  sum_o_OBUF_inst/O
+                         net (fo=0)                   0.000     5.624    sum_o
+    U17                                                               r  sum_o (OUT)
   -------------------------------------------------------------------    -------------------
 
 
@@ -246,11 +269,11 @@ Min Delay Paths
 Slack:                    inf
   Source:                 cin_i
                             (input port)
-  Destination:            cout_o
+  Destination:            sum_o
                             (output port)
   Path Group:             (none)
   Path Type:              Min at Fast Process Corner
-  Data Path Delay:        1.963ns  (logic 1.355ns (69.022%)  route 0.608ns (30.978%))
+  Data Path Delay:        1.971ns  (logic 1.353ns (68.673%)  route 0.617ns (31.327%))
   Logic Levels:           3  (IBUF=1 LUT3=1 OBUF=1)
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
@@ -258,11 +281,34 @@ Slack:                    inf
     R18                                               0.000     0.000 r  cin_i (IN)
                          net (fo=0)                   0.000     0.000    cin_i
     R18                  IBUF (Prop_ibuf_I_O)         0.078     0.078 r  cin_i_IBUF_inst/O
-                         net (fo=1, routed)           0.301     0.379    cin_i_IBUF
-    SLICE_X0Y2           LUT3 (Prop_lut3_I0_O)        0.028     0.407 r  cout_o_OBUF_inst_i_1/O
-                         net (fo=1, routed)           0.307     0.714    cout_o_OBUF
-    T17                  OBUF (Prop_obuf_I_O)         1.249     1.963 r  cout_o_OBUF_inst/O
-                         net (fo=0)                   0.000     1.963    cout_o
+                         net (fo=2, routed)           0.301     0.379    cin_i_IBUF
+    SLICE_X0Y2           LUT3 (Prop_lut3_I2_O)        0.028     0.407 r  sum_o_OBUF_inst_i_1/O
+                         net (fo=1, routed)           0.316     0.724    sum_o_OBUF
+    U17                  OBUF (Prop_obuf_I_O)         1.247     1.971 r  sum_o_OBUF_inst/O
+                         net (fo=0)                   0.000     1.971    sum_o
+    U17                                                               r  sum_o (OUT)
+  -------------------------------------------------------------------    -------------------
+
+Slack:                    inf
+  Source:                 cin_i
+                            (input port)
+  Destination:            cout_o
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        2.020ns  (logic 1.398ns (69.211%)  route 0.622ns (30.789%))
+  Logic Levels:           3  (IBUF=1 LUT3=1 OBUF=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    R18                                               0.000     0.000 r  cin_i (IN)
+                         net (fo=0)                   0.000     0.000    cin_i
+    R18                  IBUF (Prop_ibuf_I_O)         0.078     0.078 r  cin_i_IBUF_inst/O
+                         net (fo=2, routed)           0.301     0.379    cin_i_IBUF
+    SLICE_X0Y2           LUT3 (Prop_lut3_I1_O)        0.030     0.409 r  cout_o_OBUF_inst_i_1/O
+                         net (fo=1, routed)           0.321     0.730    cout_o_OBUF
+    T17                  OBUF (Prop_obuf_I_O)         1.290     2.020 r  cout_o_OBUF_inst/O
+                         net (fo=0)                   0.000     2.020    cout_o
     T17                                                               r  cout_o (OUT)
   -------------------------------------------------------------------    -------------------
 

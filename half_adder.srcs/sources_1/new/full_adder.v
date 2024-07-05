@@ -27,19 +27,44 @@ module full_adder(
    output sum_o,
    output cout_o
     );
-    wire ha1sum,ha1cout,ha2cout;
-    //instantiation
-  half_adder HA1(
-  .a_i (a_i),
-  .b_i (b_i),
-  .sum_o (ha1sum),
-  .cout_o (ha1cout)
-  );
-  half_adder HA2 (
-  .a_i (ha1sum),
-  .b_i (cin_i),
-  .sum_o (sum_O),
-  .cout_o (ha2cout)  
-  );
-  or G1 (cout_o,ha2cout,ha1cout);
+  assign {cout_o,sum_o}=a_i + b_i + cin_i;
 endmodule
+
+module full_adder_tb;
+ reg a_i;
+ reg b_i;
+ reg cin_i;
+ wire sum_o;
+ wire cout_o;
+ full_adder uut (
+    .a_i(a_i), 
+    .b_i(b_i), 
+    .cin_i(cin_i), 
+    .sum_o(sum_o), 
+    .cout_o(cout_o)
+  );
+  
+  initial begin 
+  a_i=1'b0;b_i=1'b0;cin_i=1'b0;
+  #10;
+  a_i=1'b0;b_i=1'b0;cin_i=1'b1;
+  #10;
+  a_i=1'b0;b_i=1'b1;cin_i=1'b0;
+  #10;
+  a_i=1'b0;b_i=1'b1;cin_i=1'b1;
+  #10;
+  a_i=1'b1;b_i=1'b0;cin_i=1'b0;
+  #10;
+  a_i=1'b1;b_i=1'b0;cin_i=1'b1;
+  #10;
+  a_i=1'b1;b_i=1'b1;cin_i=1'b0;
+  #10;
+  a_i=1'b1;b_i=1'b1;cin_i=1'b1;
+  #10;
+  $finish;
+  
+  
+  
+  end
+endmodule
+

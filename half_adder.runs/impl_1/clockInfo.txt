@@ -1,8 +1,8 @@
 -------------------------------------
 | Tool Version : Vivado v.2024.1
-| Date         : Mon Jul  1 20:20:43 2024
+| Date         : Fri Jul  5 10:54:58 2024
 | Host         : EVREN
-| Design       : checkpoint_full_adder
+| Design       : design_1
 | Device       : xc7k70t-fbv676-1--
 -------------------------------------
 
